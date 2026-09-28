@@ -336,6 +336,7 @@
 	socd {
 		polling-delay-passive = <100>;
 		polling-delay = <0>;
+		status = "disabled";
 		thermal-sensors = <&bcl_soc>;
 
 		trips {
@@ -352,7 +353,11 @@
 			};
 
 			socd_trip:socd-trip {
-				temperature = <90>;
+//#ifdef OPLUS_FEATURE_CHG_BASIC
+				temperature = <100>;
+//#else
+//				temperature = <90>;
+//#endif
 				hysteresis = <0>;
 				type = "passive";
 			};

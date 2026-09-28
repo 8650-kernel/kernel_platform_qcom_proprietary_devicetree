@@ -10,17 +10,14 @@ maintainers:
 
 properties:
   compatible:
-    items:
-      - enum:
-        - qcom,usb-snps-eusb2-phy
-        - qcom,usb-snps-eusb2-fw-managed
+    const: qcom,usb-snps-eusb2-phy
 
   reg:
     description: |
       Address and length of the register set for the device. Required regs are::
        - eusb2_phy_base:: the base register for the PHY
-      Optional regs are::
        - eud_detect_reg:: VIOCTL_EUD_DETECT register.
+      Optional regs are::
        - eud_enable_reg:: register address to read eud enable/disable status.
     minItems: 2
 
@@ -41,15 +38,6 @@ properties:
     items:
       - const: ref_clk_src # required
       - const: ref_clk
-
-  power-domains:
-    description: specifies phandles to PM domain provider nodes
-    maxItems: 2
-
-  power-domain-names:
-    items:
-      - const: usb_transfer
-      - const: usb_core
 
   qcom,vdd-voltage-level:
     description: |
@@ -77,11 +65,6 @@ properties:
     description: parameter override sequence with value, reg offset pair
     $ref: /schemas/types.yaml#/definitions/uint32-array
 
-  qcom,eud-det-val:
-    description:
-      EUD Detect register programming incase multiple HS PHYs are present and
-      each one has to be brought out of reset.
-
   dummy-supply:
     description: |
       phandle to eUSB2 repeater for enforcing probe ordering for eUSB2 repeater
@@ -90,30 +73,14 @@ properties:
 required:
   - compatible
   - reg
-
-allOf:
-  - if:
-      properties:
-        compatible:
-          contains:
-            enum:
-              - qcom,usb-snps-eusb2-fw-managed
-    then:
-      required:
-        - power-domains
-        - power-domain-names
-    else:
-      required:
-        - clocks
-        - clock-names
-        - resets
-        - vdd-supply
-        - vdda12-supply
-        - qcom,vdd-voltage-level
-        - resets
-        - reset-names
-        - usb-repeater
-
+  - vdd-supply
+  - vdda12-supply
+  - clocks
+  - clock-names
+  - qcom,vdd-voltage-level
+  - resets
+  - reset-names
+  - usb-repeater
 
 additionalProperties: false
 
@@ -140,13 +107,6 @@ examples:
       reset-names = "phy_reset";
 
       usb-repeater = <&pm8550b_eusb2_repeater>;
-    };
-  - |
-    usb_1_hsphy: phy@88e3000 {
-      compatible = "qcom,usb-snps-eusb2-fw-managed";
-      reg = <0x88e3000 0x154>;
-      power-domains = <&scmi12_pd 0>, <&scmi12_pd 1>;
-      power-domain-names = "usb_transfer", "usb_core";
     };
 ...
 
