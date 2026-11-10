@@ -158,6 +158,62 @@ _platform_map = {
             {"name": "anorak.dtb"},
         ],
     },
+    "seraph": {
+        "dtb_list": [
+
+        ],
+        "dtbo_list": [
+
+        ],
+    },
+    "seraph-tuivm": {
+        "dtb_list": [
+
+        ],
+        "dtbo_list": [
+
+        ],
+    },
+    "neo": {
+        "dtb_list": [
+
+        ],
+        "dtbo_list": [
+
+        ],
+    },
+    "neo-la": {
+        "dtb_list": [
+
+        ],
+        "dtbo_list": [
+
+        ],
+    },
+    "neo-le": {
+        "dtb_list": [
+
+        ],
+        "dtbo_list": [
+
+        ],
+    },
+    "neo-tuivm": {
+        "dtb_list": [
+
+        ],
+        "dtbo_list": [
+
+        ],
+    },
+    "mdm9607": {
+        "dtb_list": [
+
+        ],
+        "dtbo_list": [
+
+        ],
+    },
 }
 
 def _get_dtb_lists(target, dt_overlay_supported):
